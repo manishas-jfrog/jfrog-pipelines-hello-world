@@ -2,7 +2,7 @@
 
 This is a simple, "hello world" level example that defines a pipeline with 3 linear steps, triggered by a Github repository.
 
-![alt text](https://github.com/manishas-jfrog/jfrog-pipelines-hello-world/images/hello-world-pipelines-image.png "JFrog Pipelines Hello world")
+![alt text](https://github.com/manishas-jfrog/jfrog-pipelines-hello-world/blob/master/images/hello-world-pipeline-image.png "JFrog Pipelines Hello world")
 
 Pre-requisites:
 

@@ -8,7 +8,7 @@
 #        include: master
         
 pipelines:
-  - name: pipeline-hello-world
+  - name: pipeline_hello_world
     steps:
       - name: step_1
         type: Bash

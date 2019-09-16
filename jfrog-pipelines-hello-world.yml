@@ -1,0 +1,42 @@
+resources:
+  - name: myAppRepo
+    type: GitRepo
+    configuration:
+      gitProvider: manishas_github   # replace with your integration  
+      path: manishas/app    # replace with your repository name
+      branches:
+        include: master
+        
+pipelines:
+  - name: pipeline-hello-world
+    steps:
+      - name: step_1
+        type: Bash
+        configuration:
+          inputResources:
+            - name: myAppRepo
+        execution:
+          onExecute:
+            - printenv
+            - echo $res_myAppRepo_commitSha
+            - add_run_variables first_stepid=$step_id
+
+      - name: step_2
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: step_1
+        execution:
+          onExecute:
+            - echo "Hello world"
+            - echo $first_stepid
+
+      - name: step_3
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: step_2
+        execution:
+          onExecute:
+            - echo "Hello world"
+            - echo $first_stepid

@@ -2,7 +2,7 @@ resources:
   - name: someRepo
     type: GitRepo
     configuration:
-      gitProvider: manishas_github   # replace with your integration  
+      gitProvider: manisha_github   # replace with your integration  
       path: manishas-jfrog/jfrog-pipelines-hello-world    # replace with your repository name
       branches:
         include: master

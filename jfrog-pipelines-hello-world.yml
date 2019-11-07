@@ -8,7 +8,7 @@ resources:
         include: master
         
 pipelines:
-  - name: pipeline_hello_world
+  - name: basic_pipeline
     steps:
       - name: step_1
         type: Bash

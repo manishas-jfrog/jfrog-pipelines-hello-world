@@ -17,9 +17,9 @@ pipelines:
             - name: someRepo
         execution:
           onExecute:
-            - printenv
             - echo $res_someRepo_commitSha
-            - add_run_variables first_stepid=$step_id
+            - add_run_variables current_runid=$run_id
+            - echo "Previous run ID is $prev_runid"             
 
       - name: step_2
         type: Bash
@@ -29,9 +29,19 @@ pipelines:
         execution:
           onExecute:
             - echo "Hello world"
-            - echo $first_stepid
+            - echo $current_runid
 
       - name: step_3
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: step_1
+        execution:
+          onExecute:
+            - echo "Hello world"
+            - echo $current_runid
+
+      - name: step_4
         type: Bash
         configuration:
           inputSteps:
@@ -39,4 +49,26 @@ pipelines:
         execution:
           onExecute:
             - echo "Hello world"
-            - echo $first_stepid
+            - echo $current_runid
+
+      - name: step_5
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: step_3
+        execution:
+          onExecute:
+            - echo "Hello world"
+            - echo $current_runid
+ 
+       - name: step_6
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: step_4
+            - name: step_5            
+        execution:
+          onExecute:
+            - echo "Hello world"
+            - echo $current_runid
+            - add_pipeline_variables prev_runid=$run_id

@@ -8,7 +8,7 @@ resources:
         include: master
         
 pipelines:
-  - name: basic_pipeline
+  - name: jfrog-pipelines-hello-world
     steps:
       - name: step_1
         type: Bash

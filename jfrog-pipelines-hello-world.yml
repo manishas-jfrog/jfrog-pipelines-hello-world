@@ -15,8 +15,6 @@ pipelines:
         configuration:
           inputResources:
             - name: someRepo
-          integrations:
-            - name: manishas_jira
         execution:
           onExecute:
             - echo $res_someRepo_commitSha

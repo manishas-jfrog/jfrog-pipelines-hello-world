@@ -22,8 +22,6 @@ pipelines:
             - echo $res_someRepo_commitSha
             - add_run_variables current_runid=$run_id
             - echo "Previous run ID is $prev_runid"  
-          onSuccess:
-            - send_notification manishas_jira --project-id "Pipelines" --type "Bug" --summary "test bug from pipeline automation" --description "test bug from pipeline automation" 
 
       - name: step_2
         type: Bash

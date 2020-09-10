@@ -2,21 +2,23 @@ resources:
   - name: someRepo
     type: GitRepo
     configuration:
-      gitProvider: manishas_github   # replace with your integration  
+      gitProvider: manishas_github   # replace with your integration
       path: manishas-jfrog/jfrog-pipelines-hello-world    # replace with your repository name
       branches:
         include: master
-        
+
 pipelines:
   - name: hello_world_pipeline
     steps:
       - name: step_1
         type: Bash
         configuration:
+          timeoutSeconds: 60
           inputResources:
             - name: someRepo
         execution:
           onExecute:
+            - sleep 120
             - echo $res_someRepo_commitSha
             - add_run_variables current_runid=$run_id
             - echo "Previous run ID is $prev_runid"  
@@ -60,13 +62,13 @@ pipelines:
           onExecute:
             - echo "Hello world"
             - echo $current_runid
- 
+
       - name: step_6
         type: Bash
         configuration:
           inputSteps:
             - name: step_4
-            - name: step_5            
+            - name: step_5
         execution:
           onExecute:
             - echo "Hello world"

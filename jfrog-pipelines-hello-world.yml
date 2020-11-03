@@ -22,7 +22,7 @@ pipelines:
         configuration:
           timeoutSeconds: 60
           inputResources:
-            - name: someRepo
+            - name: myRepo
         execution:
           onExecute:
             - echo $res_myRepo_commitSha

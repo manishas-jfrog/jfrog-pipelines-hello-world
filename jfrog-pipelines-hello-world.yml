@@ -1,11 +1,18 @@
 resources:
-  - name: someRepo
+  - name: myRepo
     type: GitRepo
     configuration:
       gitProvider: manishas_jfrog_github   # replace with your integration
       path: manishas-jfrog/jfrog-pipelines-hello-world    # replace with your repository name
       branches:
         include: master
+        
+  - name: myPropertyBag
+    type: PropertyBag
+    configuration:
+      commitSha: 1
+      runID: 1
+
 
 pipelines:
   - name: hello_world_pipeline
@@ -18,9 +25,9 @@ pipelines:
             - name: someRepo
         execution:
           onExecute:
-            - sleep 120
-            - echo $res_someRepo_commitSha
+            - echo $res_myRepo_commitSha
             - add_run_variables current_runid=$run_id
+            - add_run_variables commitSha=$res_myRepo_commitSha            
             - echo "Previous run ID is $prev_runid"
 
       - name: step_2
@@ -38,39 +45,13 @@ pipelines:
         configuration:
           inputSteps:
             - name: step_1
-        execution:
-          onExecute:
-            - echo "Hello world"
-            - echo $current_runid
-
-      - name: step_4
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: step_2
-        execution:
-          onExecute:
-            - echo "Hello world"
-            - echo $current_runid
-
-      - name: step_5
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: step_3
-        execution:
-          onExecute:
-            - echo "Hello world"
-            - echo $current_runid
-
-      - name: step_6
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: step_4
-            - name: step_5
+          outputResources:
+            - name: myPropertyBag
         execution:
           onExecute:
             - echo "Hello world"
             - echo $current_runid
             - add_pipeline_variables prev_runid=$run_id
+            - write_output myPropertyBag commitSha=$commitSha runID=$current_runid
+
+

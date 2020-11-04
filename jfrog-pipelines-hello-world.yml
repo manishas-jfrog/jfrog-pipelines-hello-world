@@ -1,12 +1,15 @@
+template: true   # required for local templates
+valuesFilePath: ./values.yml
+
 resources:
   - name: myRepo
     type: GitRepo
     configuration:
-      gitProvider: manishas_jfrog_github   # replace with your integration
-      path: manishas-jfrog/jfrog-pipelines-hello-world    # replace with your repository name
+      gitProvider: {{ Values.myRepo.gitProvider }} #manishas_jfrog_github   # replace with your integration
+      path: {{ Values.myRepo.path }} #manishas-jfrog/jfrog-pipelines-hello-world    # replace with your repository name
       branches:
         include: master
-        
+
   - name: myPropertyBag
     type: PropertyBag
     configuration:
@@ -15,36 +18,35 @@ resources:
 
 
 pipelines:
-  - name: hello_world_pipeline
+  - name: my_first_pipeline
     steps:
-      - name: step_1
+      - name: p1_s1
         type: Bash
         configuration:
-          timeoutSeconds: 60
           inputResources:
             - name: myRepo
         execution:
           onExecute:
             - echo $res_myRepo_commitSha
             - add_run_variables current_runid=$run_id
-            - add_run_variables commitSha=$res_myRepo_commitSha            
+            - add_run_variables commitSha=$res_myRepo_commitSha
             - echo "Previous run ID is $prev_runid"
 
-      - name: step_2
+      - name: p1_s2
         type: Bash
         configuration:
           inputSteps:
-            - name: step_1
+            - name: p1_s1
         execution:
           onExecute:
             - echo "Hello world"
             - echo $current_runid
 
-      - name: step_3
+      - name: p1_s3
         type: Bash
         configuration:
           inputSteps:
-            - name: step_2
+            - name: p1_s2
           outputResources:
             - name: myPropertyBag
         execution:
@@ -54,4 +56,13 @@ pipelines:
             - add_pipeline_variables prev_runid=$run_id
             - write_output myPropertyBag commitSha=$commitSha runID=$current_runid
 
-
+  - name: my_second_pipeline
+    steps:
+      - name: p2_s1
+        type: Bash
+        configuration:
+          inputResources:
+            - name: myPropertyBag
+        execution:
+          onExecute:
+            - echo "CommitSha is $res_myPropertyBag_commitSha"

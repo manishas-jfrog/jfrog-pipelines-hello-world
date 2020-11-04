@@ -2,7 +2,7 @@ template: true   # required for local templates
 valuesFilePath: ./values.yml
 
 resources:
-  - name: myRepo
+  - name: myFirstRepo
     type: GitRepo
     configuration:
       gitProvider: {{ Values.myRepo.gitProvider }} #manishas_jfrog_github   # replace with your integration
@@ -24,12 +24,12 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: myRepo
+            - name: myFirstRepo
         execution:
           onExecute:
-            - echo $res_myRepo_commitSha
+            - echo $res_myFirstRepo_commitSha
             - add_run_variables current_runid=$run_id
-            - add_run_variables commitSha=$res_myRepo_commitSha
+            - add_run_variables commitSha=$res_myFirstRepo_commitSha
             - echo "Previous run ID is $prev_runid"
 
       - name: p1_s2

@@ -50,7 +50,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            isContinue: yes
+            isContinue: 1
           inputSteps:
             - name: p1_s1
           outputResources:
@@ -59,7 +59,7 @@ pipelines:
           onExecute:
             # Demonstrates the availability of an env variable written to run state during p1_s1
             - echo $current_runid
-            - write_output s2_output continue=$icContinue
+            - write_output s2_output continue=$isContinue
 
       - name: p1_s3
         type: Bash

@@ -81,7 +81,8 @@ pipelines:
 
   - name: my_second_pipeline
     configuration:
-      waitOnParentComplete: true  
+      dependencyMode:
+        waitOnParentComplete: true  
     steps:
       - name: p2_s1
         type: Bash

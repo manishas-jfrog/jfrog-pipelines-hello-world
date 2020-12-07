@@ -50,7 +50,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            isContinue: { $run_id }
+            isContinue: ${run_number}
           inputSteps:
             - name: p1_s1
           outputResources:

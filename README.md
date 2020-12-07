@@ -17,7 +17,7 @@ Steps to run this pipeline:
 - Edit the config file `jfrog-pipelines-hello-world.yml` in your fork of this repo and replace the following in the GitRepo resource:
     - gitProvider should point to your Github integration
     - path should point to your fork of this repository
-  Save and commit the file.  
+  Save and commit the yaml file.  
 - [Add a pipeline source](https://www.jfrog.com/confluence/display/CICD/Adding+a+Pipeline+Source) and point it to the `jfrog-pipelines-hello-world.yml` in your fork of this repo. This adds your configuration to the platform and a pipeline is created based on your YAML. At this point, you can go to the **View Pipelines** page and see a pipeline with the structure as shown in the screenshot above.
 - You can now commit to the repo to trigger your pipeline, or trigger it manually through the UI.
 

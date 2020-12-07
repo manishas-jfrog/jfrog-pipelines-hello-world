@@ -9,6 +9,7 @@ resources:
       gitProvider: {{ .Values.myRepo.gitProvider }}
       # Repository path, including org name/repo name
       path: {{ .Values.myRepo.path }} #manishas-jfrog/jfrog-pipelines-hello-world    # replace with your repository name
+      newCommit: true
       branches:
         # Specifies which branches will trigger dependent steps
         include: master

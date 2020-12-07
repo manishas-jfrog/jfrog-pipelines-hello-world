@@ -80,11 +80,12 @@ pipelines:
             - write_output myPropertyBag commitSha=$commitSha runID=$current_runid
 
   - name: my_second_pipeline
+    configuration:
+      waitOnParentComplete: true  
     steps:
       - name: p2_s1
         type: Bash
         configuration:
-          waitOnParentComplete: true
           inputResources:
             # Sets up step to be triggered when myPropertyBag is updated
             - name: myPropertyBag

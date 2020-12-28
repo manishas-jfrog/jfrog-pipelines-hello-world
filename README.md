@@ -1,4 +1,4 @@
-# jfrog-pipelines-hello-world
+# jfrog-pipelines-simple-example
 
 This is a simple, "hello world" level example that defines two pipelines:
 - `my_fiest_pipeline contains 3 linear steps, triggered by a Github repository. The steps demonstrate simple tasks like reading information from the input resource and writing to and reading from run/pipeline state.  The last step in this pipeline also writes the Github commitSha that triggered the run to an output resource of type "PropertyBag".

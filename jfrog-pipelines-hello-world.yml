@@ -31,9 +31,8 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            readOnly:
-              stepOne: p1_s1
-              stepTwo: s2
+            stepOne: p1_s1
+            stepTwo: s2
           inputResources:
             # Sets up step to be triggered when there are commit events to myFirstRepo
             - name: myFirstRepo

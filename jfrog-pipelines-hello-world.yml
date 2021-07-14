@@ -21,10 +21,19 @@ resources:
 
 pipelines:
   - name: my_first_pipeline
+    configuration:
+      environmentVariables:
+        readOnly:
+          pipeOne: true
+          pipeTwo: 2
     steps:
       - name: p1_s1
         type: Bash
         configuration:
+          environmentVariables:
+            readOnly:
+              stepOne: p1_s1
+              stepTwo: s2
           inputResources:
             # Sets up step to be triggered when there are commit events to myFirstRepo
             - name: myFirstRepo
@@ -40,6 +49,11 @@ pipelines:
             # So this will be empty during first run and will be set to prior run number in subsequent runs
             # Pipeline state documentation: https://www.jfrog.com/confluence/display/JFROG/Creating+Stateful+Pipelines#CreatingStatefulPipelines-PipelineState
             - echo "Previous run ID is $prev_runid"
+            - echo "pipeOne is $pipeOne"
+            - echo "pipeTwo is $pipeTwo"
+            - echo "stepOne is $stepOne"
+            - echo "stepTwo is $stepTwo"
+            - echo "Extra var is $exvar"
 
       - name: p1_s2
         type: Bash
@@ -50,6 +64,10 @@ pipelines:
           onExecute:
             # Demonstrates the availability of an env variable written to run state during p1_s1
             - echo $current_runid
+            - echo "pipeOne is $pipeOne"
+            - echo "pipeTwo is $pipeTwo"
+            - echo "stepTwo is $stepTwo"
+            - echo "Extra var is $exvar"
 
       - name: p1_s3
         type: Bash
@@ -67,6 +85,8 @@ pipelines:
             # Dependent pipelines can be configured to trigger when this resource is updated
             # Utility functions documentation: https://www.jfrog.com/confluence/display/JFROG/Pipelines+Utility+Functions
             - write_output myPropertyBag commitSha=$commitSha runID=$current_runid
+            - echo "pipeOne is $pipeOne"
+            - echo "pipeTwo is $pipeTwo"
 
   - name: my_second_pipeline
     steps:

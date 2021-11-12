@@ -111,9 +111,10 @@ pipelines:
         execution:
           onExecute:
             - update_commit_status myFirstRepo --status processing
+            - sleep 20
           onSuccess:
-            - update_commit_status myFirstRepo --status success            
+            - update_commit_status myFirstRepo --status success
+            - sleep 20            
           onFailure:
             - update_commit_status myFirstRepo --status failed
-          onComplete:
-            - update_commit_status myFirstRepo --status completed           
+            - sleep 20                      

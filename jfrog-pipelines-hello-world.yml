@@ -99,3 +99,21 @@ pipelines:
           onExecute:
             # Retrieves the commitSha from input resource
             - echo "CommitSha is $res_myPropertyBag_commitSha"
+            
+  - name: my_test_pipeline
+    steps:
+      - name: 1_test_pipeline
+        type: Bash
+        configuration:
+          inputResources:
+            # Sets up step to be triggered when myPropertyBag is updated
+            - name: myFirstRepo
+        execution:
+          onExecute:
+            - update_commit_status myFirstRepo --status processing
+          onSuccess:
+            - update_commit_status myFirstRepo --status success            
+          onFailure:
+            - update_commit_status myFirstRepo --status failed
+          onComplete:
+            - update_commit_status myFirstRepo --status completed           

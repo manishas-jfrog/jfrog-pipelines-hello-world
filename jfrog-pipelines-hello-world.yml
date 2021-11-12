@@ -102,7 +102,7 @@ pipelines:
             
   - name: my_test_pipeline
     steps:
-      - name: 1_test_pipeline
+      - name: tp_1
         type: Bash
         configuration:
           inputResources:

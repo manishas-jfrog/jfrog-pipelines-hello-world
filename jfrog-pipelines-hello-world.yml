@@ -110,11 +110,11 @@ pipelines:
             - name: myFirstRepo
         execution:
           onExecute:
-            - update_commit_status myFirstRepo --status processing
-            - sleep 20
+            - update_commit_status myFirstRepo --status processing --message “this is a long description”
+            - sleep 15
           onSuccess:
-            - update_commit_status myFirstRepo --status success
-            - sleep 20            
+            - update_commit_status myFirstRepo --status Success
+            - sleep 15            
           onFailure:
-            - update_commit_status myFirstRepo --status failed
-            - sleep 20                      
+            - update_commit_status myFirstRepo --status Failed
+            - sleep 15                      
